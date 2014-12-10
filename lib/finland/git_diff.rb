@@ -23,7 +23,7 @@ module Finland
       match = line.match /^@@ -(?<line_number>\d+),?(?<line_quantity>\d+)? \+\d/
       number = match["line_number"].to_i
       quantity = match["line_quantity"].to_i
-      number..(number + [quantity - 1, 0].max)
+      (number - 1)..((number + [quantity - 1, 0].max) - 1)
     end
   end
 end
