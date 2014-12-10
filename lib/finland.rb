@@ -45,4 +45,8 @@ module Finland
     FileUtils.mkdir_p dir
     File.write(index_location, Marshal.dump(indexes))
   end
+
+  def self.load_index
+    Marshal.load(File.read(index_location)) if File.exists? index_location
+  end
 end
