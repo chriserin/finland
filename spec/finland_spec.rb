@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'ostruct'
 require 'finland'
 require 'fileutils'
@@ -43,6 +44,7 @@ describe 'Finland' do
 
     after do
       FileUtils.rm_rf "tmp"
+      Finland.index_location = @tmp_location
     end
   end
 
