@@ -11,11 +11,11 @@ module Finland
   self.observed_dirs = []
   self.indexes = {}
 
-  def self.index_test(test, test_block)
+  def self.index_test(test_name, &test_block)
     previous_snapshot = current_snapshot
     test_block.call
     snapshot = current_snapshot
-    indexes["#{test.name}:#{test.line}"] = diff_snapshot(snapshot, previous_snapshot)
+    indexes[test_name] = diff_snapshot(snapshot, previous_snapshot)
     write_index(indexes)
   end
 

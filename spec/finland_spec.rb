@@ -9,13 +9,14 @@ describe 'Finland' do
 
   context 'indexing tests' do
     before do
+      @tmp_location = Finland.index_location
       Finland.index_location = "tmp/finland_index.txt"
     end
 
     it '#index_test' do
-      test_block = ->{ "execute test" }
-      test = OpenStruct.new(name: "test_name", line: 10)
-      Finland.index_test(test, test_block)
+      Finland.index_test("test_name:10") do ||
+        "execute test"
+      end
       expect(Finland.indexes["test_name:10"].class).to eq Hash
       expect(Finland.indexes["test_name:10"].keys.length).to eq 0
       expect(File.exists?("tmp/finland_index.txt")).to eq true
@@ -25,12 +26,12 @@ describe 'Finland' do
       Finland.observed_dirs << "spec/fixtures"
       require 'fixtures/add.rb'
       add_test_block = ->{ add(1, 2) }
-      add_test = OpenStruct.new(name: "add_test", line: 1)
+      add_test = "add_test:1"
       Finland.index_test(add_test, add_test_block)
 
       require 'fixtures/subtract.rb'
       subtract_test_block = ->{ subtract(1, 2) }
-      subtract_test = OpenStruct.new(name: "subtract_test", line: 1)
+      subtract_test = "subtract_test:1"
       Finland.index_test(subtract_test, subtract_test_block)
 
       indexes = Marshal.load(File.read("tmp/finland_index.txt"))
