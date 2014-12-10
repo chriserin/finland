@@ -1,7 +1,7 @@
 module Finland
   class GitDiff
     def self.get(commits_number)
-      `git diff -U0 HEAD~#{commits_number}`
+      `git diff -U0 HEAD`
     end
 
     def self.parse(diff_txt)
