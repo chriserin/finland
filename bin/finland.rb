@@ -1,7 +1,14 @@
-#/usr/bin/ruby.rb
+#!/usr/bin/env ruby
+require 'pathname'
 
+$LOAD_PATH << 'lib'
+
+$:.unshift Pathname(__FILE__).join('../lib').to_s
 require 'finland'
 
-diff = Finland::GitDiff.parse(Finland::GitDiff.get(1)))
+Finland.index_location = "index.txt"
 
-puts Finland::Compare.determine_affected_tests(Finland.load_index, diff)
+diff = Finland::GitDiff.parse(Finland::GitDiff.get(1))
+index = Finland.load_index
+require 'pry'; binding.pry;
+puts Finland::Compare.determine_affected_tests(index, diff)

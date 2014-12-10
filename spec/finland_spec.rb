@@ -12,6 +12,8 @@ describe 'Finland' do
     before do
       @tmp_location = Finland.index_location
       Finland.index_location = "tmp/finland_index.txt"
+      @tmp_observed_dirs = Finland.observed_dirs
+      Finland.observed_dirs = []
     end
 
     it '#index_test' do
@@ -47,6 +49,7 @@ describe 'Finland' do
     after do
       FileUtils.rm_rf "tmp"
       Finland.index_location = @tmp_location
+      Finland.observed_dirs = @tmp_observed_dirs
     end
   end
 

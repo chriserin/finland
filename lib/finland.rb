@@ -1,5 +1,7 @@
 require 'fileutils'
 require "finland/version"
+require 'finland/git_diff'
+require 'finland/compare'
 require "snapshot_coverage"
 
 module Finland
