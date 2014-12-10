@@ -10,5 +10,4 @@ Finland.index_location = "index.txt"
 
 diff = Finland::GitDiff.parse(Finland::GitDiff.get(1))
 index = Finland.load_index
-require 'pry'; binding.pry;
 puts Finland::Compare.determine_affected_tests(index, diff)
