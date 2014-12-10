@@ -26,14 +26,16 @@ describe 'Finland' do
     it '#index_test should index only the parts of that test' do
       Finland.observed_dirs << "spec/fixtures"
       require 'fixtures/add.rb'
-      add_test_block = ->{ add(1, 2) }
       add_test = "add_test:1"
-      Finland.index_test(add_test, add_test_block)
+      Finland.index_test(add_test) do
+        add(1, 2)
+      end
 
       require 'fixtures/subtract.rb'
-      subtract_test_block = ->{ subtract(1, 2) }
       subtract_test = "subtract_test:1"
-      Finland.index_test(subtract_test, subtract_test_block)
+      Finland.index_test(subtract_test) do
+        subtract(1, 2)
+      end
 
       indexes = Marshal.load(File.read("tmp/finland_index.txt"))
       expect(indexes['add_test:1'].class).to eq Hash
