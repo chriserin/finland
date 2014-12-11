@@ -58,4 +58,9 @@ module Finland
       {}
     end
   end
+
+  def self.affected_tests
+    diff = Finland::GitDiff.parse(Finland::GitDiff.get(1))
+    Finland::Compare.determine_affected_tests(load_index, diff)
+  end
 end
