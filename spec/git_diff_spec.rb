@@ -14,7 +14,7 @@ index 8843d8f..fac62bf 100644
     DIFF
 
     result = Finland::GitDiff.parse(git_diff)
-    expect(result).to eq({"db/seeds/development.rb" => [154..155]})
+    expect(result).to eq({Dir.pwd + "/" + "db/seeds/development.rb" => [154..155]})
   end
 
   it 'should parse git diff with multiple diffs' do
@@ -42,7 +42,7 @@ index 8843d8f..fac62bf 100644
     DIFF
 
     result = Finland::GitDiff.parse(git_diff)
-    expect(result).to eq({"db/seeds/development.rb" => [154..155, 173..174, 191..192, 209..210]})
+    expect(result).to eq({Dir.pwd + "/" + "db/seeds/development.rb" => [154..155, 173..174, 191..192, 209..210]})
   end
 
   it 'should parse git diff with multiple files' do
@@ -74,6 +74,6 @@ index 19749b1..4b61910 100644
     DIFF
 
     result = Finland::GitDiff.parse(git_diff)
-    expect(result).to eq({"app/models/booking.rb" => [107..107, 111..111], "app/models/cancellation.rb" => [33..34, 42..43]})
+    expect(result).to eq({Dir.pwd + "/" + "app/models/booking.rb" => [107..107, 111..111], Dir.pwd + "/" + "app/models/cancellation.rb" => [33..34, 42..43]})
   end
 end

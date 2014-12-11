@@ -11,7 +11,7 @@ module Finland
       current_file = ""
       reduced_lines.each_with_object({}) do |line, result|
         if match = line.match(/^--- a\/(.*)$/)
-          current_file = match[1]
+          current_file = Dir.pwd + "/" + match[1]
           result[current_file] = []
         elsif match = line.match(/^@@/)
           result[current_file] << parse_line_diff(line)
