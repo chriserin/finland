@@ -11,14 +11,13 @@ module Finland
   Coverage.start
 
   self.observed_dirs = [Dir.pwd]
-  self.indexes = {}
 
   def self.index_test(test_name, &test_block)
     previous_snapshot = current_snapshot
     test_block.call
     snapshot = current_snapshot
-    indexes[test_name] = diff_snapshot(snapshot, previous_snapshot)
-    write_index(indexes)
+    current_index[test_name] = diff_snapshot(snapshot, previous_snapshot)
+    write_index(current_index)
   end
 
   def self.current_snapshot
@@ -37,6 +36,10 @@ module Finland
     result
   end
 
+  def self.current_index
+    self.indexes = indexes || load_index
+  end
+
   def self.diff_array(old_arr, new_arr)
     new_arr.map{|x| x || 0}.zip(old_arr.map {|x| x || 0}).map {|x| x.inject(:-)};
   end
@@ -49,6 +52,10 @@ module Finland
   end
 
   def self.load_index
-    Marshal.load(File.read(index_location)) if File.exists? index_location
+    if File.exists? index_location
+      Marshal.load(File.read(index_location))
+    else
+      {}
+    end
   end
 end
