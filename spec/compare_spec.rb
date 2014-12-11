@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'finland/compare'
 
 describe Finland::Compare do
