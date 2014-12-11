@@ -10,7 +10,7 @@ module Finland
   end
   Coverage.start
 
-  self.observed_dirs = []
+  self.observed_dirs = [Dir.pwd]
   self.indexes = {}
 
   def self.index_test(test_name, &test_block)
