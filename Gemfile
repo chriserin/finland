@@ -4,4 +4,5 @@ source 'https://rubygems.org'
 gem 'snapshot_coverage', path: '~/oss/snapshot_coverage'
 gem 'rspec'
 gem 'pry'
+gem 'cucumber'
 gemspec
