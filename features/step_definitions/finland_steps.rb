@@ -29,7 +29,7 @@ end
 
 When(/^I run the test suite with Finland$/) do
   output = capture(:stdout) do
-    RSpec::Core::Runner.run Finland.affected_tests
+    RSpec::Core::Runner.run Finland.affected_tests.grep /_spec/
   end
 
   match = output.match /(\d+) examples?/
