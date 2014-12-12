@@ -49,12 +49,12 @@ module Finland
     dir = File.dirname path
     FileUtils.mkdir_p dir
     dumped_index = Marshal.dump(indexes)
-    File.write(index_location, dumped_index, encoding: 'ASCII-8BIT')
+    File.binwrite index_location, dumped_index
   end
 
   def self.load_index
-    if File.exists? index_location
-      Marshal.load(File.read(index_location))
+    if File.exists? index_location and File.stat(index_location).size > 0
+      Marshal.load(File.binread(index_location))
     else
       {}
     end
