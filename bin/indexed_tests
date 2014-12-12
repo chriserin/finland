@@ -7,7 +7,7 @@ $LOAD_PATH << 'lib'
 $:.unshift Pathname(__FILE__).join('../lib').to_s
 require 'finland'
 
-Finland.index_location = "index.txt"
+Finland.index_location = "finland_index.dat"
 
 index = Finland.load_index
 puts index.keys

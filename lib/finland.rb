@@ -48,7 +48,8 @@ module Finland
     path = File.expand_path index_location
     dir = File.dirname path
     FileUtils.mkdir_p dir
-    File.write(index_location, Marshal.dump(indexes))
+    dumped_index = Marshal.dump(indexes)
+    File.write(index_location, dumped_index, encoding: 'ASCII-8BIT')
   end
 
   def self.load_index
