@@ -1,30 +1,68 @@
 # Finland
 
-TODO: Write a gem description
+Find the tests affected by a change.
+
+## Why
+
+We run the entire test suite after a change to ensure that all tests are passing before pushing to a central repo or deploying.  We only run the entire suite because we don't know which tests are affected by the code changes that have been made.  Running `finland` identifies the affected tests, which are the only tests requiring execution to ensure all test are passing.
+
+## Requirements
+
+Finland relies upon git diff to understand what code has changed in your application.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your application's Gemfile (gem only available via github currently):
 
 ```ruby
-gem 'finland'
+gem 'finland', github: 'chriserin/finland'
 ```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
+## Setup
 
-    $ gem install finland
+For rspec specs, include this code in the `spec_helper.rb` or equivalent file.
+
+```ruby
+RSpec.configure do |c|
+  c.around(:each) do |example|
+    Finland.index_test(example.location) do
+      example.run
+    end
+  end
+end
+```
+
+For cucumber specs, include this code in a support file in the features/support dir.
+
+```ruby
+Around do |scenario, block|
+  Finland.index_test(scenario.location.to_s) do
+    block.call
+  end
+end
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+1. After installation, run the entire test suite to index each test.  This will produce a file with the default name `finland_index.dat`.
+
+2. After creating the finland index, make a change to a ruby file.  This change should be reflected in `git diff`.
+
+3. Running the command `finland` will output all tests affected by the change.
+
+4. To use with rspec run `rspec $(finland | grep spec)`.  Similarly use `cucumber $(finland | grep feature)` to use this tool with cucumbe.
+
+Run finland
+    
+    $ finland
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/finland/fork )
+1. Fork it ( https://github.com/chriserin/finland/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
