@@ -6,6 +6,10 @@ Find the tests affected by a change.
 
 We run the entire test suite after a change to ensure that all tests are passing before pushing to a central repo or deploying.  We only run the entire suite because we don't know which tests are affected by the code changes that have been made.  Running `finland` identifies the affected tests, which are the only tests requiring execution to ensure all test are passing.
 
+## How it works
+
+For each test Finland uses a combination of the coverage library included with ruby and the `set_trace_func` method to know which lines of code were executed for that test.  It persists that information for each test to a file and compares the output of 'git diff' against the lines executed for each test.  If an executed line is mentioned in the git diff, then the test is sent to the output.
+
 ## Requirements
 
 Finland relies upon git diff to understand what code has changed in your application.
@@ -48,7 +52,7 @@ end
 
 ## Usage
 
-1. After installation, run the entire test suite to index each test.  This will produce a file with the default name `finland_index.dat`.
+1. After installation and setup, run the entire test suite to index each test.  This will produce a file with the default name `finland_index.dat`.
 
 2. After creating the finland index, make a change to a ruby file.  This change should be reflected in `git diff`.
 
