@@ -44,6 +44,7 @@ describe 'Finland' do
       expect(indexes['subtract_test:1'].class).to eq Hash
       expect(indexes['add_test:1'].keys.first).to include "spec/fixtures/add.rb"
       expect(indexes['subtract_test:1'].keys.first).to include "spec/fixtures/subtract.rb"
+      expect(indexes['subtract_test:1'].values.first).to eq [1, 1, 0]
     end
 
     after do

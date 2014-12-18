@@ -6,7 +6,7 @@ require "snapshot_coverage"
 
 module Finland
   class << self
-    attr_accessor :observed_dirs, :indexes, :index_location, :previous_snapshot
+    attr_accessor :observed_dirs, :indexes, :index_location
   end
   Coverage.start
 
@@ -14,7 +14,14 @@ module Finland
 
   def self.index_test(test_name, &test_block)
     previous_snapshot = current_snapshot
+    set_trace_func proc { |event, file, line|
+      if event == 'call' && observed_dirs.any? {|f| file.include? f}
+        previous_snapshot[file] = previous_snapshot[file].dup
+        previous_snapshot[file][line - 1] = previous_snapshot[file][line - 1] - 1
+      end
+    }
     test_block.call
+    set_trace_func nil
     snapshot = current_snapshot
     current_index[test_name] = diff_snapshot(snapshot, previous_snapshot)
     write_index(current_index)
