@@ -8,7 +8,7 @@ We run the entire test suite after a change to ensure that all tests are passing
 
 ## How it works
 
-For each test Finland uses a combination of the coverage library included with ruby and the `set_trace_func` method to know which lines of code were executed for that test.  It persists that information for each test to a file and compares the output of 'git diff' against the lines executed for each test.  If an executed line is mentioned in the git diff, then the test is sent to the output.
+For each executed test Finland uses a combination of the coverage library included with ruby and the `set_trace_func` method to know which lines of code were executed for that test.  It persists that information to a file.  When a user runs finland it compares the output of 'git diff' against the lines executed for each test.  If an executed line is mentioned in the git diff, then the test is sent to the output.
 
 ## Requirements
 
